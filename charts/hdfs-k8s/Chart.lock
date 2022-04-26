@@ -1,0 +1,27 @@
+dependencies:
+- name: zookeeper
+  repository: file://../zookeeper
+  version: 2.1.6
+- name: hdfs-config-k8s
+  repository: file://../hdfs-config-k8s
+  version: 0.1.0
+- name: hdfs-krb5-k8s
+  repository: file://../hdfs-krb5-k8s
+  version: 0.1.0
+- name: hdfs-journalnode-k8s
+  repository: file://../hdfs-journalnode-k8s
+  version: 0.1.0
+- name: hdfs-namenode-k8s
+  repository: file://../hdfs-namenode-k8s
+  version: 0.1.0
+- name: hdfs-simple-namenode-k8s
+  repository: file://../hdfs-simple-namenode-k8s
+  version: 0.1.0
+- name: hdfs-datanode-k8s
+  repository: file://../hdfs-datanode-k8s
+  version: 0.1.0
+- name: hdfs-client-k8s
+  repository: file://../hdfs-client-k8s
+  version: 0.1.0
+digest: sha256:20395752717b527cfc862c04e038a2f88eda8ce0250cfae4448870bf913f539f
+generated: "2022-04-15T11:04:10.3174815+09:00"

@@ -16,7 +16,7 @@ spec:
     app: {{ template "hdfs-k8s.namenode.name" . }}
     release: {{ .Release.Name }}
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ template "hdfs-k8s.namenode.fullname" . }}
@@ -28,6 +28,9 @@ spec:
   serviceName: {{ template "hdfs-k8s.namenode.fullname" . }}
   # Create a size-1 set.
   replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "hdfs-k8s.namenode.name" . }}
   template:
     metadata:
       labels:

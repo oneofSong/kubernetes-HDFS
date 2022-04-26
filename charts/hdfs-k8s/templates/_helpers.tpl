@@ -262,3 +262,4 @@ Construct the full name of the namenode statefulset member 1.
 {{- $domain := include "svc-domain" . -}}
 {{- printf "%s.%s.%s" $pod $service $domain -}}
 {{- end -}}
+

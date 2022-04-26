@@ -22,7 +22,7 @@ spec:
     app: {{ template "hdfs-k8s.namenode.name" . }}
     release: {{ .Release.Name }}
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: {{ template "hdfs-k8s.namenode.fullname" . }}
@@ -110,7 +110,7 @@ data:
   # ad-hoc operation as specified by a user.
   custom-run.sh: {{ .Values.customRunScript | quote }}
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ template "hdfs-k8s.namenode.fullname" . }}
@@ -120,7 +120,10 @@ metadata:
     release: {{ .Release.Name }}
 spec:
   serviceName: {{ template "hdfs-k8s.namenode.fullname" . }}
-  replicas: 2
+  replicas: {{ .Values.global.nameReplicasCount }}
+  selector:
+    matchLabels:
+      app: {{ template "hdfs-k8s.namenode.name" . }}
   template:
     metadata:
       labels:
@@ -173,7 +176,7 @@ spec:
       containers:
         # TODO: Support hadoop version as option.
         - name: hdfs-namenode
-          image: uhopper/hadoop-namenode:2.7.2
+          image: {{ template "namenode.image" . }}
           env:
             - name: HADOOP_CUSTOM_CONF_DIR
               value: /etc/hadoop-custom-conf

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: namenode-volume-02
+  labels: 
+    app: hdfs-k8s.namenode
+spec:
+  storageClassName: ""
+  capacity:
+    storage: 100Gi
+  accessModes: 
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  hostPath:
+    path: "/USER/namenode02"

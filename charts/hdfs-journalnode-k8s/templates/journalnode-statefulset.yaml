@@ -22,7 +22,7 @@ spec:
     app: {{ template "hdfs-k8s.journalnode.name" . }}
     release: {{ .Release.Name }}
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: {{ template "hdfs-k8s.journalnode.fullname" . }}
@@ -37,7 +37,7 @@ spec:
       release: {{ .Release.Name }}
   minAvailable: {{ div .Values.global.journalnodeQuorumSize 2 | add1 }}
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ template "hdfs-k8s.journalnode.fullname" . }}
@@ -46,6 +46,9 @@ metadata:
     chart: {{ template "hdfs-k8s.subchart" . }}
     release: {{ .Release.Name }}
 spec:
+  selector:
+    matchLabels:
+      app: {{ template "hdfs-k8s.journalnode.name" . }}
   serviceName: {{ template "hdfs-k8s.journalnode.fullname" . }}
   replicas: {{ .Values.global.journalnodeQuorumSize }}
   template:
@@ -87,12 +90,12 @@ spec:
       {{- end }}
       containers:
         - name: hdfs-journalnode
-          image: uhopper/hadoop-namenode:2.7.2
+          image: {{ template "journalnode.image" . }} 
           env:
             - name: HADOOP_CUSTOM_CONF_DIR
               value: /etc/hadoop-custom-conf
           command: ["/entrypoint.sh"]
-          args: ["/opt/hadoop-2.7.2/bin/hdfs", "--config", "/etc/hadoop", "journalnode"]
+          args: ["/opt/hadoop/bin/hdfs", "--config", "/etc/hadoop", "journalnode"]
           ports:
           - containerPort: 8485
             name: jn

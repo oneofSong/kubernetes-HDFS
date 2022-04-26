@@ -1,0 +1,16 @@
+hdfs-namenode-k8s:
+  persistence:
+    storageClass: "-"
+    selector:
+      matchLabels:
+        app: hdfs-k8s.namenode
+
+hdfs-namenode-k8s:
+  hostNetworkEnabled: false
+
+
+global:
+  defaultAffinityEnabled: false
+  dataNodeHostPath: 
+    - /USER/datanode
+
