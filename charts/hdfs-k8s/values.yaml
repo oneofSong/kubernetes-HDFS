@@ -175,6 +175,28 @@ hdfs-datanode-k8s:
 ## ------------------------------------------------------------------------------
 ## hdfs-krb5-k8s:
 ## ------------------------------------------------------------------------------
+hdfs-client-k8s:
+  hdfs-datanode-k8s:
+  ## Node labels and tolerations for pod assignment
+  image:
+    repository: hadoop
+    tag: 2.7.3
+    pullPolicy: IfNotPresent
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    ## e.g:
+    ##
+    # pullSecrets:
+    #   - myRegistryKeySecretName
+    pullSecrets: []
+    ## Enable debug mode
+    ##
+    debug: false
+
+## ------------------------------------------------------------------------------
+## hdfs-krb5-k8s:
+## ------------------------------------------------------------------------------
 hdfs-krb5-k8s:
   persistence:
     ## Persistent Volume Storage Class
@@ -234,6 +256,7 @@ global:
 
   ## Whether or not to expect namenodes in the HA setup.
   namenodeHAEnabled: true
+  nameReplicasCount: 0
 
   ## The number of zookeeper server to have in the quorum.
   ## This should match zookeeper.replicaCount above. Used only when
